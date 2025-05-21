@@ -8,13 +8,14 @@ RED='\033[1;31m'
 YELLOW='\033[1;33m'
 GREEN='\033[1;32m'
 GREY='\033[0;90m'
+BLUE='\033[1;34m'
+MAGENTA='\033[1;35m'
 NC='\033[0m' # No Color
 
-# Header
 echo -e "${GREY}== Log Analysis Run @ $(date) ==${NC}"
 echo "== Log Analysis Run @ $(date)" > "$RESULT_FILE"
 
-awk -F',' -v RED="$RED" -v YELLOW="$YELLOW" -v GREEN="$GREEN" -v GREY="$GREY" -v NC="$NC" '
+awk -F',' -v RED="$RED" -v YELLOW="$YELLOW" -v GREEN="$GREEN" -v GREY="$GREY" -v NC="$NC" -v BLUE="$BLUE" -v MAGENTA="$MAGENTA" '
 {
   gsub(/^[ \t]+|[ \t]+$/, "", $1);
   gsub(/^[ \t]+|[ \t]+$/, "", $2);
@@ -43,6 +44,17 @@ END {
     e = end[pid]
     raw_status = ""
     duration_str = "-"
+    color_status = ""
+    color_task = ""
+
+    # Apply task type coloring
+    if (desc ~ /background job/) {
+      color_task = MAGENTA desc NC
+    } else if (desc ~ /scheduled task/) {
+      color_task = BLUE desc NC
+    } else {
+      color_task = desc
+    }
 
     if (s == "" || e == "") {
       raw_status = "INCOMPLETE"
@@ -78,8 +90,11 @@ END {
       }
     }
 
-    printf "%-7s %-25s %-10s %s\n", pid, desc, color_status, duration_str
-    printf "%-7s %-25s %-10s %s\n", pid, desc, raw_status, duration_str >> "'"$RESULT_FILE"'"
+    # Print to terminal (color)
+    printf "%-7s %-30s %-10s %s\n", pid, color_task, color_status, duration_str
+
+    # Print to results.log (plain)
+    printf "%-7s %-30s %-10s %s\n", pid, desc, raw_status, duration_str >> "'"$RESULT_FILE"'"
   }
 }
-' "$LOG_FILE" | sort -k5
+' "$LOG_FILE" | sort -k4,4nr
