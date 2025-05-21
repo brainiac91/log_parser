@@ -1,12 +1,7 @@
 #!/bin/bash
 
 LOG_FILE="logs.log"
-TEMP_FILE="jobs.tmp"
 
-# Clear any existing temp file
-> "$TEMP_FILE"
-
-# Parse the log file
 awk -F',' '
 {
   gsub(/^[ \t]+|[ \t]+$/, "", $1); # Trim timestamp
@@ -31,12 +26,14 @@ awk -F',' '
     close(cmd);
 
     duration = end_epoch - start_epoch;
+    minutes = int(duration / 60);
+    seconds = duration % 60;
 
     status = "OK";
     if (duration > 600) status = "ERROR";
     else if (duration > 300) status = "WARNING";
 
-    printf "%-7s %-25s %-8s %5ds\n", key, desc[key], status, duration;
+    printf "%-7s %-25s %-8s %3dm %2ds\n", key, desc[key], status, minutes, seconds;
   }
 }
-' "$LOG_FILE" | sort -k4 -nr
+' "$LOG_FILE" | sort -k5,5nr
