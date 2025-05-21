@@ -1,10 +1,22 @@
 #!/bin/bash
 
 LOG_FILE="logs.log"
+RESULT_FILE="results.log"
 
-awk -F',' '
+# ANSI colors
+RED='\033[1;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[1;32m'
+GREY='\033[0;90m'
+NC='\033[0m' # No Color
+
+# Header
+echo -e "${GREY}== Log Analysis Run @ $(date) ==${NC}"
+echo "== Log Analysis Run @ $(date)" > "$RESULT_FILE"
+
+awk -F',' -v RED="$RED" -v YELLOW="$YELLOW" -v GREEN="$GREEN" -v GREY="$GREY" -v NC="$NC" '
 {
-  gsub(/^[ \t]+|[ \t]+$/, "", $1); # Trim timestamp
+  gsub(/^[ \t]+|[ \t]+$/, "", $1);
   gsub(/^[ \t]+|[ \t]+$/, "", $2);
   gsub(/^[ \t]+|[ \t]+$/, "", $3);
   gsub(/^[ \t]+|[ \t]+$/, "", $4);
@@ -29,10 +41,12 @@ END {
     desc = description[pid]
     s = start[pid]
     e = end[pid]
+    raw_status = ""
+    duration_str = "-"
 
     if (s == "" || e == "") {
-      status = "INCOMPLETE"
-      duration_str = "-"
+      raw_status = "INCOMPLETE"
+      color_status = GREY raw_status NC
     } else {
       start_time = "1900-01-01 " s
       end_time = "1900-01-01 " e
@@ -50,12 +64,22 @@ END {
       seconds = duration % 60
       duration_str = sprintf("%dm %02ds", minutes, seconds)
 
-      if (duration > 600) status = "ERROR"
-      else if (duration > 300) status = "WARNING"
-      else status = "OK"
+      if (duration > 600) {
+        raw_status = "ERROR"
+        color_status = RED raw_status NC
+      }
+      else if (duration > 300) {
+        raw_status = "WARNING"
+        color_status = YELLOW raw_status NC
+      }
+      else {
+        raw_status = "OK"
+        color_status = GREEN raw_status NC
+      }
     }
 
-    printf "%-7s %-25s %-10s %s\n", pid, desc, status, duration_str
+    printf "%-7s %-25s %-10s %s\n", pid, desc, color_status, duration_str
+    printf "%-7s %-25s %-10s %s\n", pid, desc, raw_status, duration_str >> "'"$RESULT_FILE"'"
   }
 }
 ' "$LOG_FILE" | sort -k5
