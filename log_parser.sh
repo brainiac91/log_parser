@@ -97,4 +97,4 @@ END {
     printf "%-7s %-30s %-10s %s\n", pid, desc, raw_status, duration_str >> "'"$RESULT_FILE"'"
   }
 }
-' "$LOG_FILE" | sort -k4,4nr
+' "$LOG_FILE" | sort -k5
