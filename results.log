@@ -1,0 +1,54 @@
+== Log Analysis Run @ Wed May 21 20:49:45 EEST 2025
+PID     TASK                     START      END        STATUS    DURATION  
+60134   background job ulp                  11:41:11   11:41:55   OK                   0m 44s    
+24799   scheduled task 536                  11:51:21   11:51:28   OK                   0m 07s    
+71766   scheduled task 074                  11:45:04   11:50:51   WARNING              5m 47s    
+32904   scheduled task 697                  11:49:12   11:49:46   OK                   0m 34s    
+86716   background job xfg                  11:59:29   12:05:03   WARNING              5m 34s    
+87228   scheduled task 268                  11:44:25   11:53:53   WARNING              9m 28s    
+22003   scheduled task 004                  11:55:29   12:06:42   ERROR                11m 13s   
+16168   scheduled task 773                  12:02:39   12:02:55   OK                   0m 16s    
+62401   scheduled task 936                  12:05:59   12:16:23   ERROR                10m 24s   
+70808   scheduled task 182                  11:44:43   12:18:26   ERROR                33m 43s   
+67833   scheduled task 080                  11:57:16   12:00:51   OK                   3m 35s    
+72897   scheduled task 016                  12:12:27   -          INCOMPLETE           -         
+72029   scheduled task 333                  12:03:20   -          INCOMPLETE           -         
+98746   scheduled task 746                  12:04:18   12:11:35   WARNING              7m 17s    
+87570   scheduled task 794                  11:53:57   12:01:50   WARNING              7m 53s    
+52532   background job tqc                  12:00:03   12:13:56   ERROR                13m 53s   
+64591   scheduled task 521                  11:57:05   11:58:55   OK                   1m 50s    
+23703   scheduled task 374                  12:04:57   12:18:23   ERROR                13m 26s   
+26831   scheduled task 538                  11:46:04   11:48:16   OK                   2m 12s    
+32674   scheduled task 626                  11:51:06   11:52:32   OK                   1m 26s    
+55722   background job cmx                  11:54:56   11:55:43   OK                   0m 47s    
+62922   scheduled task 531                  12:14:20   12:15:09   OK                   0m 49s    
+85742   scheduled task 064                  11:55:16   12:07:33   ERROR                12m 17s   
+75164   scheduled task 173                  11:45:47   11:46:51   OK                   1m 04s    
+36709   background job djw                  11:47:04   11:47:54   OK                   0m 50s    
+38579   background job you                  11:50:09   11:53:42   OK                   3m 33s    
+24482   scheduled task 672                  12:10:38   12:19:14   WARNING              8m 36s    
+34189   scheduled task 920                  11:59:43   12:03:02   OK                   3m 19s    
+81470   background job wiy                  12:08:30   12:09:33   OK                   1m 03s    
+99672   background job sqm                  11:57:08   12:02:21   WARNING              5m 13s    
+96183   scheduled task 678                  11:58:12   12:02:26   OK                   4m 14s    
+33528   scheduled task 706                  11:52:47   11:56:09   OK                   3m 22s    
+39860   scheduled task 460                  11:53:17   12:13:09   ERROR                19m 52s   
+50295   scheduled task 811                  11:48:45   11:55:20   WARNING              6m 35s    
+27222   scheduled task 294                  11:50:07   11:56:15   WARNING              6m 08s    
+47139   scheduled task 946                  11:44:56   11:48:22   OK                   3m 26s    
+10515   scheduled task 386                  11:38:33   11:40:24   OK                   1m 51s    
+23118   scheduled task 188                  11:40:49   11:41:28   OK                   0m 39s    
+37980   scheduled task 032                  11:35:23   11:35:56   OK                   0m 33s    
+39547   scheduled task 051                  11:37:53   11:49:22   ERROR                11m 29s   
+45135   scheduled task 515                  11:37:14   11:49:37   ERROR                12m 23s   
+57672   scheduled task 796                  11:36:11   11:36:18   OK                   0m 07s    
+81258   background job wmy                  11:36:58   11:51:44   ERROR                14m 46s   
+90812   background job dej                  11:39:26   11:43:32   OK                   4m 06s    
+90962   scheduled task 996                  11:40:51   11:42:46   OK                   1m 55s    
+
+== Job Summary ==
+Total Jobs: 45
+OK: 24
+WARNING: 9
+ERROR: 10
+INCOMPLETE: 2
